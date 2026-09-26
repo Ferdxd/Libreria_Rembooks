@@ -1,0 +1,309 @@
+﻿<UserControl x:Class="Libreria_Rembooks.Views.ConsultarComprasView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             Background="#F3F4F6"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="900">
+
+
+    <Grid Margin="20">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- ================= HEADER ================= -->
+        <Grid Grid.Row="0" Margin="0,0,0,20">
+
+            <StackPanel HorizontalAlignment="Center">
+                <TextBlock Text="Consulta de Compras"
+                           FontSize="26"
+                           FontWeight="Bold"
+                           Foreground="#111827"
+                           HorizontalAlignment="Center"/>
+
+                <TextBlock Text="Busca, filtra y revisa el detalle de las compras registradas"
+                           FontSize="13"
+                           Foreground="#6B7280"
+                           HorizontalAlignment="Center"
+                           Margin="0,4,0,0"/>
+            </StackPanel>
+
+            <Button Content="⬅ Regresar"
+                    Width="125"
+                    Height="36"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Background="#E5E7EB"
+                    Foreground="#111827"
+                    FontWeight="SemiBold"
+                    BorderThickness="0"
+                    Cursor="Hand"
+                    Click="btnRegresar_Click"/>
+
+        </Grid>
+
+        <!-- ================= FILTROS ================= -->
+        <Border Grid.Row="1"
+                Background="White"
+                CornerRadius="10"
+                BorderBrush="#E5E7EB"
+                BorderThickness="1"
+                Padding="18"
+                Margin="0,0,0,18">
+
+            <Grid>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="12"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Text="Filtros de búsqueda"
+                           FontSize="15"
+                           FontWeight="SemiBold"
+                           Foreground="#111827"/>
+
+                <Grid Grid.Row="2">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="145"/>
+                        <ColumnDefinition Width="18"/>
+
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="145"/>
+                        <ColumnDefinition Width="18"/>
+
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="220"/>
+                        <ColumnDefinition Width="*"/>
+
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Text="Desde:"
+                               VerticalAlignment="Center"
+                               FontWeight="SemiBold"
+                               Foreground="#374151"/>
+
+                    <DatePicker Grid.Column="1"
+                                x:Name="dp_Desde"
+                                Height="32"
+                                VerticalContentAlignment="Center"/>
+
+                    <TextBlock Text="Hasta:"
+                               Grid.Column="3"
+                               VerticalAlignment="Center"
+                               FontWeight="SemiBold"
+                               Foreground="#374151"/>
+
+                    <DatePicker Grid.Column="4"
+                                x:Name="dp_Hasta"
+                                Height="32"
+                                VerticalContentAlignment="Center"/>
+
+                    <TextBlock Text="Proveedor:"
+                               Grid.Column="6"
+                               VerticalAlignment="Center"
+                               FontWeight="SemiBold"
+                               Foreground="#374151"/>
+
+                    <Grid Grid.Column="7"
+                          Margin="5,0,0,0">
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="38"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBox x:Name="txtProveedor"
+                                 Grid.Column="0"
+                                 Height="32"
+                                 VerticalContentAlignment="Center"
+                                 Padding="8,0"
+                                 Text="{Binding NombreProveedor}"/>
+
+                        <Button Grid.Column="1"
+                                Content="🔍"
+                                Width="32"
+                                Height="32"
+                                Margin="6,0,0,0"
+                                Background="#EEF2FF"
+                                Foreground="#1D4ED8"
+                                BorderThickness="0"
+                                Cursor="Hand"
+                                Click="btnBuscarProveedor_Click"/>
+
+                    </Grid>
+
+                    <Button Grid.Column="9"
+                            Content="🔍 Buscar"
+                            Width="105"
+                            Height="34"
+                            Background="#2563EB"
+                            Foreground="White"
+                            FontWeight="SemiBold"
+                            BorderThickness="0"
+                            Cursor="Hand"
+                            Margin="10,0,0,0"
+                            Click="btnBuscar_Click"/>
+
+                    <Button Grid.Column="11"
+                            Content="Limpiar"
+                            Width="90"
+                            Height="34"
+                            Background="#E5E7EB"
+                            Foreground="#111827"
+                            FontWeight="SemiBold"
+                            BorderThickness="0"
+                            Cursor="Hand"
+                            Click="btnLimpiar_Click"/>
+
+                </Grid>
+
+            </Grid>
+
+        </Border>
+
+        <!-- ================= LISTA DE COMPRAS ================= -->
+        <Border Grid.Row="2"
+                Background="White"
+                CornerRadius="10"
+                BorderBrush="#E5E7EB"
+                BorderThickness="1">
+
+            <Grid Margin="15">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="12"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <!-- ENCABEZADO TABLA -->
+                <DockPanel Grid.Row="0">
+
+                    <StackPanel>
+                        <TextBlock Text="Compras registradas"
+                                   FontSize="16"
+                                   FontWeight="SemiBold"
+                                   Foreground="#111827"/>
+
+                        <TextBlock Text="Selecciona una compra para visualizar su detalle"
+                                   FontSize="12"
+                                   Foreground="#6B7280"
+                                   Margin="0,2,0,0"/>
+                    </StackPanel>
+
+                    <Button Content="👁 Ver Detalle"
+                            Width="130"
+                            Height="34"
+                            Background="#2563EB"
+                            Foreground="White"
+                            FontWeight="SemiBold"
+                            BorderThickness="0"
+                            Cursor="Hand"
+                            HorizontalAlignment="Right"
+                            DockPanel.Dock="Right"
+                            Click="btnSeleccionar_Click"/>
+
+                </DockPanel>
+
+                <!-- DATAGRID PRINCIPAL -->
+                <DataGrid Grid.Row="2"
+                          x:Name="dgCompras"
+                          SelectedItem="{Binding CompraTemporal}"
+                          AutoGenerateColumns="False"
+                          CanUserAddRows="False"
+                          IsReadOnly="True"
+                          RowHeight="36"
+                          HeadersVisibility="Column"
+                          GridLinesVisibility="Horizontal"
+                          HorizontalGridLinesBrush="#E5E7EB"
+                          VerticalGridLinesBrush="Transparent"
+                          BorderThickness="0"
+                          Background="White"
+                          AlternatingRowBackground="#F9FAFB"
+                          RowBackground="White"
+                          SelectionMode="Single"
+                          SelectionUnit="FullRow"
+                          FontSize="13">
+
+                    <DataGrid.Resources>
+
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="Background" Value="#F3F4F6"/>
+                            <Setter Property="Foreground" Value="#374151"/>
+                            <Setter Property="FontWeight" Value="SemiBold"/>
+                            <Setter Property="Height" Value="38"/>
+                            <Setter Property="Padding" Value="10,0"/>
+                            <Setter Property="BorderBrush" Value="#E5E7EB"/>
+                            <Setter Property="BorderThickness" Value="0,0,0,1"/>
+                            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                        </Style>
+
+                        <Style TargetType="DataGridCell">
+                            <Setter Property="Padding" Value="10,0"/>
+                            <Setter Property="BorderThickness" Value="0"/>
+                            <Setter Property="VerticalContentAlignment" Value="Center"/>
+                        </Style>
+
+                        <Style TargetType="DataGridRow">
+                            <Setter Property="Cursor" Value="Hand"/>
+                        </Style>
+
+                    </DataGrid.Resources>
+
+                    <DataGrid.Columns>
+
+                        <DataGridTextColumn Header="ID"
+                                            Binding="{Binding Id}"
+                                            Width="60"/>
+
+                        <DataGridTextColumn Header="Fecha Ingreso"
+                                            Binding="{Binding FechaIngreso, StringFormat=dd/MM/yyyy}"
+                                            Width="120"/>
+
+                        <DataGridTextColumn Header="Fecha Emisión"
+                                            Binding="{Binding FechaEmision, StringFormat=dd/MM/yyyy}"
+                                            Width="120"/>
+
+                        <DataGridTextColumn Header="Documento"
+                                            Binding="{Binding Tipo_Documento}"
+                                            Width="120"/>
+
+                        <DataGridTextColumn Header="No. Documento"
+                                            Binding="{Binding Numero_Documento}"
+                                            Width="145"/>
+
+                        <DataGridTextColumn Header="Serie"
+                                            Binding="{Binding Numero_Serie}"
+                                            Width="100"/>
+
+                        <DataGridTextColumn Header="Proveedor"
+                                            Binding="{Binding Proveedor.Razon_Social}"
+                                            Width="*"/>
+
+                        <DataGridTextColumn Header="Total"
+                                            Binding="{Binding total, StringFormat=Q {0:N2}}"
+                                            Width="120"/>
+
+                    </DataGrid.Columns>
+
+                </DataGrid>
+
+            </Grid>
+
+        </Border>
+
+    </Grid>
+
+</UserControl>

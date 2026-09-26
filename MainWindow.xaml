@@ -1,0 +1,131 @@
+﻿<Window x:Class="Libreria_Rembooks.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Librería Rembooks"
+        Height="600"
+        Width="1000"
+        WindowStartupLocation="CenterScreen">
+
+    <!-- ESTILOS -->
+    <Window.Resources>
+        <Style x:Key="MenuButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Margin" Value="10,5"/>
+            <Setter Property="Padding" Value="10"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                CornerRadius="5">
+                            <ContentPresenter VerticalAlignment="Center"
+                                              Margin="5"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#334155"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <!-- LAYOUT PRINCIPAL -->
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="220"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- MENÚ LATERAL -->
+        <Border Background="#1E293B" Grid.Column="0">
+            <StackPanel>
+
+                <!-- LOGO -->
+                <StackPanel Orientation="Horizontal" Margin="15">
+                    <Rectangle Width="40" Height="40" RadiusX="5" RadiusY="5">
+                        <Rectangle.Fill>
+                            <ImageBrush ImageSource="./Resources/Logo/LogoPrueba.jpeg" Stretch="Fill"/>
+                        </Rectangle.Fill>
+
+                    </Rectangle>
+
+
+
+                    <TextBlock Text="Rembooks"
+                               Foreground="White"
+                               FontSize="18"
+                               FontWeight="Bold"
+                               VerticalAlignment="Center"
+                               Margin="10,0,0,0"/>
+                </StackPanel>
+
+                <Separator Margin="10"/>
+                <TextBlock Text="INVENTARIO"
+                           Foreground="#94A3B8"
+                           Margin="15,20,0,5"
+                           FontSize="12"/>
+                <Button Content="Consultar Inventario"
+                        Style="{StaticResource MenuButtonStyle}" Click="Button_Inventario"/>
+                <!-- VENTAS -->
+                <TextBlock Text="VENTAS"
+                           Foreground="#94A3B8"
+                           Margin="15,20,0,5"
+                           FontSize="12"/>
+
+                <Button Content="Registrar Venta"
+                        Style="{StaticResource MenuButtonStyle}" Click="Button_Ventas"/>
+
+                <Button Content="Reportes Venta"
+                        Style="{StaticResource MenuButtonStyle}"/>
+
+                <!-- COMPRAS -->
+                <TextBlock Text="COMPRAS"
+                           Foreground="#94A3B8"
+                           Margin="15,20,0,5"
+                           FontSize="12"/>
+
+                <Button Content="Ingresar Compra"
+                        Style="{StaticResource MenuButtonStyle}" Click="Button_Compra"/>
+
+                
+                <Button Content="Ingresar Categorias"
+                        Style="{StaticResource MenuButtonStyle}" Click="Button_Categoria"/>
+                <Button Content="Ingresar Proveedores"
+                        Style="{StaticResource MenuButtonStyle}" Click="Button_Proveedores"/>
+
+                <!-- FINANZAS -->
+                <TextBlock Text="FINANZAS"
+                           Foreground="#94A3B8"
+                           Margin="15,20,0,5"
+                           FontSize="12"/>
+
+                <Button Content="Productos más vendidos"
+                        Style="{StaticResource MenuButtonStyle}"/>
+
+                <Button Content="Ganancias"
+                        Style="{StaticResource MenuButtonStyle}"/>
+
+            </StackPanel>
+        </Border>
+
+        <!-- ÁREA DE CONTENIDO -->
+        <Grid Grid.Column="1" Background="#F1F5F9">
+            <TextBlock x:Name="txtBlock_Panel_Principal"
+                       Text="Panel Principal"
+                       FontSize="24"
+                       FontWeight="Bold"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center"
+                       />
+            <ContentControl x:Name="MainContent"/>
+        </Grid>
+
+    </Grid>
+</Window>

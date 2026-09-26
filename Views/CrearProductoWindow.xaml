@@ -1,0 +1,174 @@
+﻿<Window x:Class="Libreria_Rembooks.Views.CrearProductoWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Crear Producto"
+        Height="520"
+        Width="620"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize"
+        Background="#F3F4F6">
+
+    <Grid Margin="24">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- HEADER -->
+        <StackPanel Margin="0,0,0,18">
+            <TextBlock Text="Nuevo Producto"
+                       FontSize="24"
+                       FontWeight="Bold"
+                       Foreground="#111827"/>
+
+            <TextBlock Text="Registra la información básica del producto."
+                       FontSize="13"
+                       Foreground="#6B7280"
+                       Margin="0,4,0,0"/>
+        </StackPanel>
+
+        <!-- FORMULARIO -->
+        <Border Grid.Row="1"
+                Background="White"
+                Padding="22"
+                CornerRadius="10"
+                BorderBrush="#E5E7EB"
+                BorderThickness="1">
+
+            <Grid>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="14"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="14"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="14"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="14"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="16"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- CATEGORÍA -->
+                <StackPanel Grid.Row="0" Grid.Column="0">
+                    <TextBlock Text="Categoría"
+                               FontWeight="SemiBold"
+                               Foreground="#374151"
+                               Margin="0,0,0,6"/>
+                    <ComboBox x:Name="cbCategoria"
+                              Height="34"
+                              DisplayMemberPath="Nombre"
+                              SelectedValuePath="Id"/>
+                </StackPanel>
+
+                <!-- CÓDIGO -->
+                <StackPanel Grid.Row="0" Grid.Column="2">
+                    <TextBlock Text="Código"
+                               FontWeight="SemiBold"
+                               Foreground="#374151"
+                               Margin="0,0,0,6"/>
+                    <TextBox x:Name="txtCodigo"
+                             Height="34"
+                             VerticalContentAlignment="Center"/>
+                </StackPanel>
+
+                <!-- NOMBRE -->
+                <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3">
+                    <TextBlock Text="Nombre del producto"
+                               FontWeight="SemiBold"
+                               Foreground="#374151"
+                               Margin="0,0,0,6"/>
+                    <TextBox x:Name="txtNombre"
+                             Height="34"
+                             VerticalContentAlignment="Center"/>
+                </StackPanel>
+
+                <!-- MARCA -->
+                <StackPanel Grid.Row="4" Grid.Column="0">
+                    <TextBlock Text="Marca"
+                               FontWeight="SemiBold"
+                               Foreground="#374151"
+                               Margin="0,0,0,6"/>
+                    <TextBox x:Name="txtMarca"
+                             Height="34"
+                             VerticalContentAlignment="Center"/>
+                </StackPanel>
+
+                <!-- UNIDAD -->
+                <StackPanel Grid.Row="4" Grid.Column="2">
+                    <TextBlock Text="Unidad de medida"
+                               FontWeight="SemiBold"
+                               Foreground="#374151"
+                               Margin="0,0,0,6"/>
+                    <TextBox x:Name="txtUnidad"
+                             Height="34"
+                             VerticalContentAlignment="Center"/>
+                </StackPanel>
+
+                <!-- DESCRIPCIÓN -->
+                <StackPanel Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="3">
+                    <TextBlock Text="Descripción"
+                               FontWeight="SemiBold"
+                               Foreground="#374151"
+                               Margin="0,0,0,6"/>
+                    <TextBox x:Name="txtDescripcion"
+                             Height="80"
+                             TextWrapping="Wrap"
+                             AcceptsReturn="True"
+                             VerticalScrollBarVisibility="Auto"
+                             VerticalContentAlignment="Top"/>
+                </StackPanel>
+
+                <!-- NOTA -->
+                <Border Grid.Row="8"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="3"
+                        Background="#F9FAFB"
+                        CornerRadius="6"
+                        Padding="10"
+                        BorderBrush="#E5E7EB"
+                        BorderThickness="1">
+
+                    <TextBlock Text="Tip: usa un código único para facilitar búsquedas, inventario y reportes."
+                               Foreground="#6B7280"
+                               FontSize="12"/>
+                </Border>
+
+            </Grid>
+        </Border>
+
+        <!-- BOTONES -->
+        <StackPanel Grid.Row="2"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right"
+                    Margin="0,18,0,0">
+
+            <Button Content="Cancelar"
+                    Width="120"
+                    Height="36"
+                    Margin="0,0,10,0"
+                    Background="#E5E7EB"
+                    Foreground="#111827"
+                    BorderThickness="0"
+                    Click="BtnCancelar_Click"/>
+
+            <Button Content="Guardar Producto"
+                    Width="150"
+                    Height="36"
+                    Background="#16A34A"
+                    Foreground="White"
+                    FontWeight="SemiBold"
+                    BorderThickness="0"
+                    Click="BtnGuardar_Click"/>
+        </StackPanel>
+
+    </Grid>
+</Window>

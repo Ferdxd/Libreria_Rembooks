@@ -1,0 +1,743 @@
+﻿<UserControl x:Class="Libreria_Rembooks.Views.VentasView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d"
+             d:DesignHeight="750"
+             d:DesignWidth="1100"
+             Background="#F3F4F6">
+
+    <UserControl.Resources>
+
+        <!-- ================= BOTONES ================= -->
+
+        <Style x:Key="PrimaryButtonStyle"
+               TargetType="Button">
+            <Setter Property="Height" Value="36"/>
+            <Setter Property="Padding" Value="15,0"/>
+            <Setter Property="Background" Value="#2563EB"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+
+        <Style x:Key="SuccessButtonStyle"
+               TargetType="Button">
+            <Setter Property="Height" Value="36"/>
+            <Setter Property="Padding" Value="15,0"/>
+            <Setter Property="Background" Value="#16A34A"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+
+        <Style x:Key="SecondaryButtonStyle"
+               TargetType="Button">
+            <Setter Property="Height" Value="36"/>
+            <Setter Property="Padding" Value="15,0"/>
+            <Setter Property="Background" Value="#E5E7EB"/>
+            <Setter Property="Foreground" Value="#111827"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+
+        <!-- ================= TEXTBOX ================= -->
+
+        <Style x:Key="InputTextBoxStyle"
+               TargetType="TextBox">
+            <Setter Property="Height" Value="34"/>
+            <Setter Property="Padding" Value="9,0"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="#D1D5DB"/>
+            <Setter Property="BorderThickness" Value="1"/>
+        </Style>
+
+        <!-- ================= LABEL ================= -->
+
+        <Style x:Key="InputLabelStyle"
+               TargetType="Label">
+            <Setter Property="Foreground" Value="#374151"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Margin" Value="0,0,0,5"/>
+        </Style>
+
+        <!-- ================= DATAGRID ================= -->
+
+        <Style TargetType="DataGridColumnHeader">
+            <Setter Property="Background" Value="#F3F4F6"/>
+            <Setter Property="Foreground" Value="#374151"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="Padding" Value="10,0"/>
+            <Setter Property="BorderBrush" Value="#E5E7EB"/>
+            <Setter Property="BorderThickness" Value="0,0,0,1"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+        </Style>
+
+        <Style TargetType="DataGridCell">
+            <Setter Property="Padding" Value="10,0"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+
+        <Style TargetType="DataGridRow">
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+
+    </UserControl.Resources>
+
+    <Grid Margin="20">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="12"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="12"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="12"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- ================================================= -->
+        <!-- ENCABEZADO -->
+        <!-- ================================================= -->
+
+        <Grid Grid.Row="0">
+
+            <StackPanel>
+
+                <TextBlock Text="Registro de Venta"
+                           FontSize="26"
+                           FontWeight="Bold"
+                           Foreground="#111827"/>
+
+                <TextBlock Text="Ingresa los datos del cliente y los productos incluidos en la venta"
+                           FontSize="13"
+                           Foreground="#6B7280"
+                           Margin="0,4,0,0"/>
+
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center">
+
+                <TextBlock Text="Fecha:"
+                           FontWeight="SemiBold"
+                           Foreground="#374151"
+                           VerticalAlignment="Center"
+                           Margin="0,0,8,0"/>
+
+                <DatePicker x:Name="dpFechaVenta"
+                            Width="145"
+                            Height="34"
+                            SelectedDate="{Binding Fecha}"/>
+
+            </StackPanel>
+
+        </Grid>
+
+        <!-- ================================================= -->
+        <!-- DATOS DEL CLIENTE -->
+        <!-- ================================================= -->
+
+        <Border Grid.Row="2"
+                Background="White"
+                CornerRadius="10"
+                BorderBrush="#E5E7EB"
+                BorderThickness="1"
+                Padding="16">
+
+            <Grid>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="12"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!-- ENCABEZADO CLIENTE -->
+
+                <DockPanel>
+
+                    <StackPanel>
+
+                        <TextBlock Text="Datos del cliente"
+                                   FontSize="16"
+                                   FontWeight="SemiBold"
+                                   Foreground="#111827"/>
+
+                        <TextBlock Text="Selecciona un cliente registrado o crea uno nuevo"
+                                   FontSize="12"
+                                   Foreground="#6B7280"
+                                   Margin="0,2,0,0"/>
+
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Right"
+                                DockPanel.Dock="Right">
+
+                        <Button Content="🔍 Buscar cliente"
+                                Width="145"
+                                Margin="0,0,10,0"
+                                Style="{StaticResource PrimaryButtonStyle}"
+                                Click="btnBuscarCliente_Click"/>
+
+                        <Button Content="➕ Crear cliente"
+                                Width="145"
+                                Style="{StaticResource SuccessButtonStyle}"
+                                Click="btnCrearCliente_Click"/>
+
+                    </StackPanel>
+
+                </DockPanel>
+
+                <!-- NIT Y NOMBRE -->
+
+                <Grid Grid.Row="2">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="90"/>
+                        <ColumnDefinition Width="180"/>
+                        <ColumnDefinition Width="20"/>
+                        <ColumnDefinition Width="125"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Text="NIT:"
+                               VerticalAlignment="Center"
+                               FontWeight="SemiBold"
+                               Foreground="#374151"/>
+
+                    <TextBox x:Name="txtNitCliente"
+                             Grid.Column="1"
+                             Style="{StaticResource InputTextBoxStyle}"
+                             Text="{Binding Cliente.NIT}"/>
+
+                    <TextBlock Grid.Column="3"
+                               Text="Nombre:"
+                               VerticalAlignment="Center"
+                               FontWeight="SemiBold"
+                               Foreground="#374151"/>
+
+                    <TextBox x:Name="txtNombreCliente"
+                             Grid.Column="4"
+                             Style="{StaticResource InputTextBoxStyle}"
+                             Text="{Binding Cliente.Nombre}"/>
+
+                </Grid>
+
+                <!-- DIRECCIÓN Y TELÉFONO -->
+
+                <Grid Grid.Row="4">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="90"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="20"/>
+                        <ColumnDefinition Width="125"/>
+                        <ColumnDefinition Width="220"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Text="Dirección:"
+                               VerticalAlignment="Center"
+                               FontWeight="SemiBold"
+                               Foreground="#374151"/>
+
+                    <TextBox x:Name="txtDireccionCliente"
+                             Grid.Column="1"
+                             Style="{StaticResource InputTextBoxStyle}"
+                             Text="{Binding Cliente.Direccion}"/>
+
+                    <TextBlock Grid.Column="3"
+                               Text="Teléfono:"
+                               VerticalAlignment="Center"
+                               FontWeight="SemiBold"
+                               Foreground="#374151"/>
+
+                    <TextBox x:Name="txtTelefonoCliente"
+                             Grid.Column="4"
+                             Style="{StaticResource InputTextBoxStyle}"
+                             Text="{Binding Cliente.Telefono}"/>
+
+                </Grid>
+
+            </Grid>
+
+        </Border>
+
+        <!-- ================================================= -->
+        <!-- DETALLE DE VENTA -->
+        <!-- ================================================= -->
+
+        <Border Grid.Row="4"
+                Background="White"
+                CornerRadius="10"
+                BorderBrush="#E5E7EB"
+                BorderThickness="1">
+
+            <Grid Margin="15">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <!-- TÍTULO -->
+
+                <StackPanel Grid.Row="0">
+
+                    <TextBlock Text="Detalle de la venta"
+                               FontSize="16"
+                               FontWeight="SemiBold"
+                               Foreground="#111827"/>
+
+                    <TextBlock Text="Selecciona un producto e ingresa la cantidad que deseas vender"
+                               FontSize="12"
+                               Foreground="#6B7280"
+                               Margin="0,2,0,0"/>
+
+                </StackPanel>
+
+                <!-- ================================================= -->
+                <!-- INGRESO DE PRODUCTO -->
+                <!-- ================================================= -->
+
+                <Border Grid.Row="2"
+                        Background="#F9FAFB"
+                        BorderBrush="#E5E7EB"
+                        BorderThickness="1"
+                        CornerRadius="8"
+                        Padding="12">
+
+                    <Grid>
+
+                        <Grid.ColumnDefinitions>
+
+                            <!-- Código -->
+                            <ColumnDefinition Width="125"/>
+
+                            <ColumnDefinition Width="12"/>
+
+                            <!-- Nombre -->
+                            <ColumnDefinition Width="*"/>
+
+                            <ColumnDefinition Width="12"/>
+
+                            <!-- Cantidad -->
+                            <ColumnDefinition Width="105"/>
+
+                            <ColumnDefinition Width="12"/>
+
+                            <!-- Precio -->
+                            <ColumnDefinition Width="130"/>
+
+                            <ColumnDefinition Width="12"/>
+
+                            <!-- Crear -->
+                            <ColumnDefinition Width="40"/>
+
+                            <ColumnDefinition Width="7"/>
+
+                            <!-- Confirmar -->
+                            <ColumnDefinition Width="40"/>
+
+                            <ColumnDefinition Width="7"/>
+
+                            <!-- Buscar/Agregar -->
+                            <ColumnDefinition Width="40"/>
+
+                        </Grid.ColumnDefinitions>
+
+                        <!-- ================= CÓDIGO ================= -->
+
+                        <StackPanel Grid.Column="0">
+
+                            <Label Content="Código"
+                                   Style="{StaticResource InputLabelStyle}"/>
+
+                            <TextBox x:Name="txtCodigoProducto"
+                                     Style="{StaticResource InputTextBoxStyle}"
+                                     ToolTip="Código del producto"/>
+
+                        </StackPanel>
+
+                        <!-- ================= NOMBRE ================= -->
+
+                        <StackPanel Grid.Column="2">
+
+                            <Label Content="Nombre del producto"
+                                   Style="{StaticResource InputLabelStyle}"/>
+
+                            <TextBox x:Name="txtNombreProducto"
+                                     Style="{StaticResource InputTextBoxStyle}"
+                                     IsReadOnly="True"
+                                     Background="#F3F4F6"
+                                     ToolTip="Nombre del producto seleccionado"/>
+
+                        </StackPanel>
+
+                        <!-- ================= CANTIDAD ================= -->
+
+                        <StackPanel Grid.Column="4">
+
+                            <Label Content="Cantidad"
+                                   Style="{StaticResource InputLabelStyle}"/>
+
+                            <TextBox x:Name="txtCantidadProducto"
+                                     Style="{StaticResource InputTextBoxStyle}"
+                                     HorizontalContentAlignment="Right"
+                                     ToolTip="Cantidad a vender"/>
+
+                        </StackPanel>
+
+                        <!-- ================= PRECIO ================= -->
+
+                        <StackPanel Grid.Column="6">
+
+                            <Label Content="Precio unitario"
+                                   Style="{StaticResource InputLabelStyle}"/>
+
+                            <TextBox x:Name="txtPrecioProducto"
+                                     Style="{StaticResource InputTextBoxStyle}"
+                                     HorizontalContentAlignment="Right"
+                                     IsReadOnly="True"
+                                     Background="#F3F4F6"
+                                     ToolTip="Precio de venta del producto"/>
+
+                        </StackPanel>
+
+                        <!-- ================= CREAR PRODUCTO ================= -->
+
+
+                        <!-- ================= CONFIRMAR PRODUCTO ================= -->
+
+                        <Button Grid.Column="10"
+                                Content="✔"
+                                Width="38"
+                                Margin="0,21,0,0"
+                                Background="#F59E0B"
+                                Foreground="White"
+                                BorderThickness="0"
+                                FontSize="16"
+                                FontWeight="Bold"
+                                Cursor="Hand"
+                                ToolTip="Confirmar los datos del producto"
+                                Click="btn_ConfirmarProducto_Click" HorizontalAlignment="Center"/>
+
+                        <!-- ================= BUSCAR / AÑADIR PRODUCTO ================= -->
+
+                        <Button Grid.Column="12"
+                                Content="➕"
+                                Width="38"
+                                Height="34"
+                                Margin="0,21,0,0"
+                                VerticalAlignment="Top"
+                                Background="#16A34A"
+                                Foreground="White"
+                                BorderThickness="0"
+                                FontSize="15"
+                                Cursor="Hand"
+                                ToolTip="Buscar y seleccionar producto"
+                                Click="btn_AñadirProducto_Click"/>
+
+                    </Grid>
+
+                </Border>
+
+                <!-- ================================================= -->
+                <!-- DATAGRID PRODUCTOS -->
+                <!-- ================================================= -->
+
+                <DataGrid x:Name="dgProductos"
+                          Grid.Row="4"
+                          ItemsSource="{Binding Detalles_Venta}"
+                          AutoGenerateColumns="False"
+                          CanUserAddRows="False"
+                          IsReadOnly="False"
+                          RowHeight="38"
+                          HeadersVisibility="Column"
+                          GridLinesVisibility="Horizontal"
+                          HorizontalGridLinesBrush="#E5E7EB"
+                          VerticalGridLinesBrush="Transparent"
+                          BorderThickness="0"
+                          Background="White"
+                          RowBackground="White"
+                          AlternatingRowBackground="#F9FAFB"
+                          SelectionMode="Single"
+                          SelectionUnit="FullRow"
+                          FontSize="13">
+
+                    <DataGrid.Columns>
+
+                        <!-- CAMBIAR PRODUCTO -->
+
+                        <DataGridTemplateColumn Header=""
+                                                Width="55">
+
+                            <DataGridTemplateColumn.CellTemplate>
+
+                                <DataTemplate>
+
+                                    <Button Content="🔍"
+                                            Width="30"
+                                            Height="28"
+                                            Background="#DBEAFE"
+                                            Foreground="#1D4ED8"
+                                            BorderThickness="0"
+                                            Cursor="Hand"
+                                            ToolTip="Cambiar producto"/>
+
+                                </DataTemplate>
+
+                            </DataGridTemplateColumn.CellTemplate>
+
+                        </DataGridTemplateColumn>
+
+                        <!-- CÓDIGO -->
+
+                        <DataGridTextColumn Header="Código"
+                                            Binding="{Binding Producto.Codigo}"
+                                            IsReadOnly="True"
+                                            Width="110"/>
+
+                        <!-- PRODUCTO -->
+
+                        <DataGridTextColumn Header="Producto"
+                                            Binding="{Binding Producto.Nombre}"
+                                            IsReadOnly="True"
+                                            Width="*"/>
+
+                        <!-- CANTIDAD -->
+
+                        <DataGridTextColumn Header="Cantidad"
+                                            Binding="{Binding Cantidad}"
+                                            Width="110"/>
+
+                        <!-- PRECIO -->
+
+                        <DataGridTextColumn Header="Precio unitario"
+                                            Binding="{Binding Precio_Unitario, StringFormat=Q {0:N2}}"
+                                            IsReadOnly="True"
+                                            Width="140"/>
+
+                        <!-- SUBTOTAL -->
+
+                        <DataGridTextColumn Header="Subtotal"
+                                            Binding="{Binding SubTotalCalculado, StringFormat=Q {0:N2}}"
+                                            IsReadOnly="True"
+                                            Width="140"/>
+
+                        <!-- ELIMINAR -->
+
+                        <DataGridTemplateColumn Header=""
+                                                Width="60">
+
+                            <DataGridTemplateColumn.CellTemplate>
+
+                                <DataTemplate>
+
+                                    <Button Content="🗑"
+                                            Width="30"
+                                            Height="28"
+                                            Background="#FEE2E2"
+                                            Foreground="#B91C1C"
+                                            BorderThickness="0"
+                                            Cursor="Hand"
+                                            ToolTip="Eliminar producto"
+                                            Click="btn_EliminarProducto_Click"/>
+
+                                </DataTemplate>
+
+                            </DataGridTemplateColumn.CellTemplate>
+
+                        </DataGridTemplateColumn>
+
+                    </DataGrid.Columns>
+
+                </DataGrid>
+
+            </Grid>
+
+        </Border>
+
+        <!-- ================================================= -->
+        <!-- RESUMEN Y PAGO -->
+        <!-- ================================================= -->
+
+        <Border Grid.Row="6"
+                Background="White"
+                CornerRadius="10"
+                BorderBrush="#E5E7EB"
+                BorderThickness="1"
+                Padding="16">
+
+            <Grid>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition Width="370"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- ACCIONES -->
+
+                <StackPanel VerticalAlignment="Bottom">
+
+                    <TextBlock Text="Acciones"
+                               FontSize="15"
+                               FontWeight="SemiBold"
+                               Foreground="#111827"
+                               Margin="0,0,0,12"/>
+
+                    <StackPanel Orientation="Horizontal">
+
+                        <Button Content="Cancelar"
+                                Width="110"
+                                Margin="0,0,10,0"
+                                Style="{StaticResource SecondaryButtonStyle}"
+                                Click="btnCancelar_Click"/>
+
+                        <Button x:Name="btn_Guardar"
+                                Content="💾 Guardar venta"
+                                Width="155"
+                                Style="{StaticResource SuccessButtonStyle}"
+                                Click="BtnGuardar_Click"/>
+
+                    </StackPanel>
+
+                </StackPanel>
+
+                <!-- ================= RESUMEN ================= -->
+
+                <Border Grid.Column="2"
+                        Background="#F9FAFB"
+                        CornerRadius="8"
+                        BorderBrush="#E5E7EB"
+                        BorderThickness="1"
+                        Padding="16">
+
+                    <Grid>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="12"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="10"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="10"/>
+                            <RowDefinition Height="1"/>
+                            <RowDefinition Height="12"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Text="Resumen de pago"
+                                   FontSize="16"
+                                   FontWeight="SemiBold"
+                                   Foreground="#111827"/>
+
+                        <!-- TOTAL -->
+
+                        <Grid Grid.Row="2">
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="160"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Text="Total de la venta:"
+                                       VerticalAlignment="Center"
+                                       FontWeight="SemiBold"
+                                       Foreground="#374151"/>
+
+                            <TextBox x:Name="txtTotalVenta"
+                                     Grid.Column="1"
+                                     Height="34"
+                                     Padding="8,0"
+                                     VerticalContentAlignment="Center"
+                                     HorizontalContentAlignment="Right"
+                                     IsReadOnly="True"
+                                     Background="#F3F4F6"
+                                     BorderBrush="#D1D5DB"
+                                     Text="{Binding SubTotalCalculado, StringFormat={}{0:N2}}"/>
+
+                        </Grid>
+
+                        <!-- MONTO RECIBIDO -->
+
+                        <Grid Grid.Row="4">
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="160"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Text="Monto recibido:"
+                                       VerticalAlignment="Center"
+                                       FontWeight="SemiBold"
+                                       Foreground="#374151"/>
+
+                            <TextBox x:Name="txtMontoRecibido"
+                                     Grid.Column="1"
+                                     Height="34"
+                                     Padding="8,0"
+                                     VerticalContentAlignment="Center"
+                                     HorizontalContentAlignment="Right"
+                                     BorderBrush="#D1D5DB"
+                                     Text="{Binding Monto_Recibido, UpdateSourceTrigger=PropertyChanged}"
+                                     TextChanged="txt_MontoRecibido_TextChanged"/>
+
+                        </Grid>
+
+                        <Border Grid.Row="6"
+                                Background="#E5E7EB"/>
+
+                        <!-- CAMBIO -->
+
+                        <Grid Grid.Row="8">
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock x:Name="txb_Cambio"
+                                       Text="Cambio:"
+                                       FontSize="17"
+                                       FontWeight="Bold"
+                                       VerticalAlignment="Center"
+                                       Foreground="#111827"/>
+
+                            <TextBlock Grid.Column="1"
+                                       Text="{Binding Cambio, StringFormat=Q {0:N2}}"
+                                       FontSize="20"
+                                       FontWeight="Bold"
+                                       Foreground="#16A34A"
+                                       VerticalAlignment="Center"/>
+
+                        </Grid>
+
+                    </Grid>
+
+                </Border>
+
+            </Grid>
+
+        </Border>
+
+    </Grid>
+
+</UserControl>

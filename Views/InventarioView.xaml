@@ -1,0 +1,247 @@
+﻿<UserControl x:Class="Libreria_Rembooks.Views.InventarioView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:Libreria_Rembooks.Views"
+             mc:Ignorable="d"
+             d:DesignHeight="650"
+             d:DesignWidth="1015"
+             Background="#F3F4F6">
+
+    <Grid Margin="20">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- HEADER -->
+        <StackPanel Margin="0,0,0,15">
+            <TextBlock Text="Inventario General"
+                       FontSize="28"
+                       FontWeight="Bold"
+                       Foreground="#111827"/>
+
+            <TextBlock Text="Consulta y administra la existencia actual de los productos registrados."
+                       Margin="0,4,0,0"
+                       FontSize="13"
+                       Foreground="#6B7280"/>
+        </StackPanel>
+
+        <!-- FILTROS -->
+        <Border Grid.Row="1"
+                Background="White"
+                BorderBrush="#E5E7EB"
+                BorderThickness="1"
+                CornerRadius="10"
+                Padding="18"
+                Margin="0,0,0,15">
+
+            <Grid>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Text="Filtros de Búsqueda"
+                           FontSize="15"
+                           FontWeight="SemiBold"
+                           Foreground="#374151"
+                           Margin="0,0,0,15"/>
+
+                <Grid Grid.Row="1">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="15"/>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="15"/>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="15"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Código -->
+                    <StackPanel Grid.Column="0">
+                        <TextBlock Text="Código"
+                                   FontWeight="SemiBold"
+                                   Margin="0,0,0,5"/>
+
+                        <TextBox Height="34"
+                                 x:Name="txtCodigo"
+                                 VerticalContentAlignment="Center"/>
+                    </StackPanel>
+
+                    <!-- Nombre -->
+                    <StackPanel Grid.Column="2">
+                        <TextBlock Text="Nombre"
+                                   FontWeight="SemiBold"
+                                   Margin="0,0,0,5"/>
+
+                        <TextBox Height="34"
+                                 x:Name="txtNombre"
+                                 VerticalContentAlignment="Center"/>
+                    </StackPanel>
+
+                    <!-- Categoría -->
+                    <StackPanel Grid.Column="4">
+                        <TextBlock Text="Categoría"
+                                   FontWeight="SemiBold"
+                                   Margin="0,0,0,5"/>
+
+                        <ComboBox Height="34"
+                                  x:Name="cbCategorias"
+                                  DisplayMemberPath="Nombre"
+                                  SelectedValuePath="Id"/>
+                    </StackPanel>
+
+                    <!-- Botones -->
+                    <StackPanel Grid.Column="6"
+                                Orientation="Horizontal"
+                                VerticalAlignment="Bottom">
+
+                        <Button Content="Buscar"
+                                Width="100"
+                                Height="34"
+                                Margin="0,0,10,0"
+                                Background="#2563EB"
+                                Foreground="White"
+                                BorderThickness="0"
+                                Click="btn_Buscar_Click"/>
+
+                        <Button Content="Limpiar"
+                                Width="100"
+                                Height="34"
+                                Background="#E5E7EB"
+                                Foreground="#111827"
+                                BorderThickness="0"
+                                Click="btn_Limpiar_Click"/>
+                    </StackPanel>
+
+                </Grid>
+
+                <!-- CHECKS -->
+                <StackPanel Grid.Row="2"
+                            Orientation="Horizontal"
+                            Margin="0,15,0,0">
+
+
+
+                    <CheckBox Content="Mostrar productos agotados"
+                              x:Name="checkAgotados"
+                              FontWeight="SemiBold"/>
+                </StackPanel>
+
+            </Grid>
+
+        </Border>
+
+        <!-- GRID -->
+        <Border Grid.Row="2"
+                Background="White"
+                BorderBrush="#E5E7EB"
+                BorderThickness="1"
+                CornerRadius="10"
+                Padding="10">
+
+            <Grid>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!-- Encabezado -->
+                <Grid Margin="0,0,0,10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Text="Listado de Productos"
+                               FontSize="16"
+                               FontWeight="SemiBold"
+                               Foreground="#374151"
+                               VerticalAlignment="Center"/>
+
+                    <Button Grid.Column="1"
+                            Click="btn_Seleccionar"
+                            Content="Seleccionar"
+                            Width="130"
+                            Height="32"
+                            Background="#2563EB"
+                            Foreground="White"
+                            BorderThickness="0"/>
+                </Grid>
+
+                <!-- DataGrid -->
+                <DataGrid x:Name="dgProductos"
+                          Grid.Row="1"
+                          AutoGenerateColumns="False"
+                          CanUserAddRows="False"
+                          IsReadOnly="True"
+                          RowHeight="38"
+                          FontSize="13"
+                          HeadersVisibility="Column"
+                          Margin="0,0,0,10">
+
+                    <DataGrid.Columns>
+
+                        <DataGridTextColumn Header="Código"
+                                            Binding="{Binding Codigo}"
+                                            Width="140"/>
+
+                        <DataGridTextColumn Header="Nombre"
+                                            Binding="{Binding Nombre}"
+                                            Width="2*"/>
+
+                        <DataGridTextColumn Header="Categoría"
+                                            Binding="{Binding Categoria.Nombre}"
+                                            Width="180"/>
+
+                        <DataGridTextColumn Header="Stock"
+                                            Binding="{Binding Stock}"
+                                            Width="100"/>
+
+                        <DataGridTextColumn Header="Precio Compra"
+                                            Binding="{Binding PrecioCompra,StringFormat=N2}"
+                                            Width="140"/>
+                        
+                        <DataGridTextColumn Header="Precio Venta"
+                                            Binding="{Binding PrecioVenta,StringFormat=N2}"
+                                            Width="140"/>
+
+                        <DataGridTextColumn Header="Precio Promedio"
+                                            Binding="{Binding PrecioPromedio,StringFormat=N2}"
+                                            Width="140"/>
+
+                    </DataGrid.Columns>
+
+                </DataGrid>
+
+                <!-- EXPORTAR ABAJO DEL GRID -->
+                <StackPanel Grid.Row="2"
+                            Orientation="Horizontal"
+                            HorizontalAlignment="Right">
+
+                    <Button Content="Exportar Excel"
+                            Width="140"
+                            Height="34"
+                            Background="#16A34A"
+                            Foreground="White"
+                            BorderThickness="0"
+                            Click="btn_ExportarExcel_Click"/>
+                </StackPanel>
+
+            </Grid>
+
+        </Border>
+
+    </Grid>
+
+</UserControl>

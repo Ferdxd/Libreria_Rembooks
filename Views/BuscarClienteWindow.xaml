@@ -1,0 +1,639 @@
+﻿<Window x:Class="Libreria_Rembooks.Views.BuscarClienteWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Buscar cliente"
+        Height="620"
+        Width="980"
+        MinHeight="560"
+        MinWidth="900"
+        WindowStartupLocation="CenterOwner"
+        Background="#F3F4F6">
+
+    <Window.Resources>
+
+        <!-- ================= CAMPOS ================= -->
+        <Style x:Key="InputTextBoxStyle"
+               TargetType="TextBox">
+
+            <Setter Property="Height"
+                    Value="36"/>
+
+            <Setter Property="Padding"
+                    Value="10,0"/>
+
+            <Setter Property="VerticalContentAlignment"
+                    Value="Center"/>
+
+            <Setter Property="Background"
+                    Value="White"/>
+
+            <Setter Property="Foreground"
+                    Value="#111827"/>
+
+            <Setter Property="BorderBrush"
+                    Value="#D1D5DB"/>
+
+            <Setter Property="BorderThickness"
+                    Value="1"/>
+
+            <Setter Property="FontSize"
+                    Value="13"/>
+
+        </Style>
+
+        <!-- ================= LABELS ================= -->
+        <Style x:Key="InputLabelStyle"
+               TargetType="TextBlock">
+
+            <Setter Property="Foreground"
+                    Value="#374151"/>
+
+            <Setter Property="FontWeight"
+                    Value="SemiBold"/>
+
+            <Setter Property="FontSize"
+                    Value="12.5"/>
+
+            <Setter Property="Margin"
+                    Value="0,0,0,6"/>
+
+        </Style>
+
+        <!-- ================= BOTÓN PRINCIPAL ================= -->
+        <Style x:Key="PrimaryButtonStyle"
+               TargetType="Button">
+
+            <Setter Property="Height"
+                    Value="38"/>
+
+            <Setter Property="Padding"
+                    Value="18,0"/>
+
+            <Setter Property="Background"
+                    Value="#2563EB"/>
+
+            <Setter Property="Foreground"
+                    Value="White"/>
+
+            <Setter Property="FontWeight"
+                    Value="SemiBold"/>
+
+            <Setter Property="BorderThickness"
+                    Value="0"/>
+
+            <Setter Property="Cursor"
+                    Value="Hand"/>
+
+            <Setter Property="Template">
+
+                <Setter.Value>
+
+                    <ControlTemplate TargetType="Button">
+
+                        <Border x:Name="ButtonBorder"
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="7"
+                                Padding="{TemplateBinding Padding}">
+
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"/>
+
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+
+                            <Trigger Property="IsMouseOver"
+                                     Value="True">
+
+                                <Setter TargetName="ButtonBorder"
+                                        Property="Background"
+                                        Value="#1D4ED8"/>
+
+                            </Trigger>
+
+                            <Trigger Property="IsPressed"
+                                     Value="True">
+
+                                <Setter TargetName="ButtonBorder"
+                                        Property="Background"
+                                        Value="#1E40AF"/>
+
+                            </Trigger>
+
+                        </ControlTemplate.Triggers>
+
+                    </ControlTemplate>
+
+                </Setter.Value>
+
+            </Setter>
+
+        </Style>
+
+        <!-- ================= BOTÓN VERDE ================= -->
+        <Style x:Key="SuccessButtonStyle"
+               TargetType="Button">
+
+            <Setter Property="Height"
+                    Value="38"/>
+
+            <Setter Property="Padding"
+                    Value="18,0"/>
+
+            <Setter Property="Background"
+                    Value="#16A34A"/>
+
+            <Setter Property="Foreground"
+                    Value="White"/>
+
+            <Setter Property="FontWeight"
+                    Value="SemiBold"/>
+
+            <Setter Property="BorderThickness"
+                    Value="0"/>
+
+            <Setter Property="Cursor"
+                    Value="Hand"/>
+
+            <Setter Property="Template">
+
+                <Setter.Value>
+
+                    <ControlTemplate TargetType="Button">
+
+                        <Border x:Name="ButtonBorder"
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="7"
+                                Padding="{TemplateBinding Padding}">
+
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"/>
+
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+
+                            <Trigger Property="IsMouseOver"
+                                     Value="True">
+
+                                <Setter TargetName="ButtonBorder"
+                                        Property="Background"
+                                        Value="#15803D"/>
+
+                            </Trigger>
+
+                            <Trigger Property="IsPressed"
+                                     Value="True">
+
+                                <Setter TargetName="ButtonBorder"
+                                        Property="Background"
+                                        Value="#166534"/>
+
+                            </Trigger>
+
+                        </ControlTemplate.Triggers>
+
+                    </ControlTemplate>
+
+                </Setter.Value>
+
+            </Setter>
+
+        </Style>
+
+        <!-- ================= BOTÓN SECUNDARIO ================= -->
+        <Style x:Key="SecondaryButtonStyle"
+               TargetType="Button">
+
+            <Setter Property="Height"
+                    Value="38"/>
+
+            <Setter Property="Padding"
+                    Value="18,0"/>
+
+            <Setter Property="Background"
+                    Value="#E5E7EB"/>
+
+            <Setter Property="Foreground"
+                    Value="#111827"/>
+
+            <Setter Property="FontWeight"
+                    Value="SemiBold"/>
+
+            <Setter Property="BorderThickness"
+                    Value="0"/>
+
+            <Setter Property="Cursor"
+                    Value="Hand"/>
+
+            <Setter Property="Template">
+
+                <Setter.Value>
+
+                    <ControlTemplate TargetType="Button">
+
+                        <Border x:Name="ButtonBorder"
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="7"
+                                Padding="{TemplateBinding Padding}">
+
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"/>
+
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+
+                            <Trigger Property="IsMouseOver"
+                                     Value="True">
+
+                                <Setter TargetName="ButtonBorder"
+                                        Property="Background"
+                                        Value="#D1D5DB"/>
+
+                            </Trigger>
+
+                        </ControlTemplate.Triggers>
+
+                    </ControlTemplate>
+
+                </Setter.Value>
+
+            </Setter>
+
+        </Style>
+
+        <!-- ================= DATAGRID HEADER ================= -->
+        <Style TargetType="DataGridColumnHeader">
+
+            <Setter Property="Background"
+                    Value="#F3F4F6"/>
+
+            <Setter Property="Foreground"
+                    Value="#374151"/>
+
+            <Setter Property="FontWeight"
+                    Value="SemiBold"/>
+
+            <Setter Property="Height"
+                    Value="40"/>
+
+            <Setter Property="Padding"
+                    Value="10,0"/>
+
+            <Setter Property="BorderBrush"
+                    Value="#E5E7EB"/>
+
+            <Setter Property="BorderThickness"
+                    Value="0,0,0,1"/>
+
+            <Setter Property="HorizontalContentAlignment"
+                    Value="Left"/>
+
+        </Style>
+
+        <!-- ================= DATAGRID CELLS ================= -->
+        <Style TargetType="DataGridCell">
+
+            <Setter Property="Padding"
+                    Value="10,0"/>
+
+            <Setter Property="BorderThickness"
+                    Value="0"/>
+
+            <Setter Property="VerticalContentAlignment"
+                    Value="Center"/>
+
+        </Style>
+
+        <!-- ================= DATAGRID ROWS ================= -->
+        <Style TargetType="DataGridRow">
+
+            <Setter Property="Cursor"
+                    Value="Hand"/>
+
+            <Style.Triggers>
+
+                <Trigger Property="IsMouseOver"
+                         Value="True">
+
+                    <Setter Property="Background"
+                            Value="#EFF6FF"/>
+
+                </Trigger>
+
+                <Trigger Property="IsSelected"
+                         Value="True">
+
+                    <Setter Property="Background"
+                            Value="#DBEAFE"/>
+
+                    <Setter Property="Foreground"
+                            Value="#111827"/>
+
+                </Trigger>
+
+            </Style.Triggers>
+
+        </Style>
+
+    </Window.Resources>
+
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="86"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="74"/>
+        </Grid.RowDefinitions>
+
+        <!-- ================================================= -->
+        <!-- ENCABEZADO -->
+        <!-- ================================================= -->
+        <Border Grid.Row="0"
+                Background="White"
+                BorderBrush="#E5E7EB"
+                BorderThickness="0,0,0,1"
+                Padding="24,0">
+
+            <Grid>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="54"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <Border Width="46"
+                        Height="46"
+                        CornerRadius="23"
+                        Background="#DBEAFE"
+                        VerticalAlignment="Center">
+
+                    <TextBlock Text="🔍"
+                               FontSize="21"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"/>
+
+                </Border>
+
+                <StackPanel Grid.Column="1"
+                            Margin="14,0,0,0"
+                            VerticalAlignment="Center">
+
+                    <TextBlock Text="Buscar cliente"
+                               FontSize="22"
+                               FontWeight="Bold"
+                               Foreground="#111827"/>
+
+                    <TextBlock Text="Filtra y selecciona el cliente que deseas utilizar"
+                               FontSize="12.5"
+                               Foreground="#6B7280"
+                               Margin="0,3,0,0"/>
+
+                </StackPanel>
+
+                <Button Grid.Column="2"
+                        Content="➕  Nuevo cliente"
+                        Width="145"
+                        VerticalAlignment="Center"
+                        Style="{StaticResource SuccessButtonStyle}"
+                        Click="btnNuevoCliente_Click"/>
+
+            </Grid>
+
+        </Border>
+
+        <!-- ================================================= -->
+        <!-- CONTENIDO -->
+        <!-- ================================================= -->
+        <Grid Grid.Row="1"
+              Margin="24,20">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="16"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- ================= FILTROS ================= -->
+            <Border Grid.Row="0"
+                    Background="White"
+                    BorderBrush="#E5E7EB"
+                    BorderThickness="1"
+                    CornerRadius="10"
+                    Padding="18">
+
+                <Grid>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="14"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel>
+
+                        <TextBlock Text="Filtros de búsqueda"
+                                   FontSize="16"
+                                   FontWeight="SemiBold"
+                                   Foreground="#111827"/>
+
+                        <TextBlock Text="Puedes buscar por NIT, nombre o teléfono"
+                                   FontSize="11.5"
+                                   Foreground="#6B7280"
+                                   Margin="0,3,0,0"/>
+
+                    </StackPanel>
+
+                    <Grid Grid.Row="2">
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="170"/>
+                            <ColumnDefinition Width="16"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="16"/>
+                            <ColumnDefinition Width="170"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="110"/>
+                            <ColumnDefinition Width="10"/>
+                            <ColumnDefinition Width="100"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!-- NIT -->
+                        <StackPanel Grid.Column="0">
+
+                            <TextBlock Text="NIT"
+                                       Style="{StaticResource InputLabelStyle}"/>
+
+                            <TextBox x:Name="txtNit"
+                                     Style="{StaticResource InputTextBoxStyle}"
+                                     ToolTip="Buscar por NIT"/>
+
+                        </StackPanel>
+
+                        <!-- NOMBRE -->
+                        <StackPanel Grid.Column="2">
+
+                            <TextBlock Text="Nombre o razón social"
+                                       Style="{StaticResource InputLabelStyle}"/>
+
+                            <TextBox x:Name="txtNombre"
+                                     Style="{StaticResource InputTextBoxStyle}"
+                                     ToolTip="Buscar por nombre"/>
+
+                        </StackPanel>
+
+                        <!-- TELÉFONO -->
+                        <StackPanel Grid.Column="4">
+
+                            <TextBlock Text="Teléfono"
+                                       Style="{StaticResource InputLabelStyle}"/>
+
+                            <TextBox x:Name="txtTelefono"
+                                     Style="{StaticResource InputTextBoxStyle}"
+                                     ToolTip="Buscar por teléfono"/>
+
+                        </StackPanel>
+
+                        <!-- BUSCAR -->
+                        <Button Grid.Column="6"
+                                Content="🔍  Buscar"
+                                VerticalAlignment="Bottom"
+                                Style="{StaticResource PrimaryButtonStyle}"
+                                Click="btnBuscar_Click"/>
+
+                        <!-- LIMPIAR -->
+                        <Button Grid.Column="8"
+                                Content="Limpiar"
+                                VerticalAlignment="Top"
+                                Style="{StaticResource SecondaryButtonStyle}"
+                                Click="btnLimpiar_Click" Margin="0,21,0,0"/>
+
+                    </Grid>
+
+                </Grid>
+
+            </Border>
+
+            <!-- ================= RESULTADOS ================= -->
+            <Border Grid.Row="2"
+                    Background="White"
+                    BorderBrush="#E5E7EB"
+                    BorderThickness="1"
+                    CornerRadius="10">
+
+                <Grid Margin="18">
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="14"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid>
+
+                        <StackPanel>
+
+                            <TextBlock Text="Clientes encontrados"
+                                       FontSize="16"
+                                       FontWeight="SemiBold"
+                                       Foreground="#111827"/>
+
+                            <TextBlock Text="Selecciona una fila para continuar"
+                                       FontSize="11.5"
+                                       Foreground="#6B7280"
+                                       Margin="0,3,0,0"/>
+
+                        </StackPanel>
+
+                        <Button Content="✓  Seleccionar cliente"
+                                Width="165"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Center"
+                                Style="{StaticResource PrimaryButtonStyle}"
+                                Click="btnSeleccionar_Click"/>
+
+                    </Grid>
+
+                    <DataGrid Grid.Row="2"
+                              x:Name="dgClientes"
+                              AutoGenerateColumns="False"
+                              CanUserAddRows="False"
+                              IsReadOnly="True"
+                              SelectionMode="Single"
+                              SelectionUnit="FullRow"
+                              RowHeight="38"
+                              HeadersVisibility="Column"
+                              GridLinesVisibility="Horizontal"
+                              HorizontalGridLinesBrush="#E5E7EB"
+                              VerticalGridLinesBrush="Transparent"
+                              BorderThickness="0"
+                              Background="White"
+                              RowBackground="White"
+                              AlternatingRowBackground="#F9FAFB"
+                              FontSize="13"
+                              >
+
+                        <DataGrid.Columns>
+
+                            <DataGridTextColumn Header="ID"
+                                                Binding="{Binding Id}"
+                                                Width="60"/>
+
+                            <DataGridTextColumn Header="NIT"
+                                                Binding="{Binding Nit}"
+                                                Width="135"/>
+
+                            <DataGridTextColumn Header="Nombre o razón social"
+                                                Binding="{Binding Nombre}"
+                                                Width="2*"/>
+
+                            <DataGridTextColumn Header="Dirección"
+                                                Binding="{Binding Direccion}"
+                                                Width="2*"/>
+
+                            <DataGridTextColumn Header="Teléfono"
+                                                Binding="{Binding Telefono}"
+                                                Width="130"/>
+
+                        </DataGrid.Columns>
+
+                    </DataGrid>
+
+                </Grid>
+
+            </Border>
+
+        </Grid>
+
+        <!-- ================================================= -->
+        <!-- PIE -->
+        <!-- ================================================= -->
+        <Border Grid.Row="2"
+                Background="White"
+                BorderBrush="#E5E7EB"
+                BorderThickness="0,1,0,0"
+                Padding="24,0">
+
+            <Grid>
+
+                <TextBlock Text="También puedes seleccionar un cliente haciendo doble clic sobre la fila."
+                           Foreground="#6B7280"
+                           FontSize="11.5"
+                           VerticalAlignment="Center"/>
+
+                <Button Content="Cerrar"
+                        Width="105"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        IsCancel="True"
+                        Style="{StaticResource SecondaryButtonStyle}"/>
+
+            </Grid>
+
+        </Border>
+
+    </Grid>
+
+</Window>
