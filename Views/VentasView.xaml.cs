@@ -95,59 +95,24 @@ namespace Libreria_Rembooks.Views
 
         private async void BtnGuardar_Click(object sender, RoutedEventArgs e)
         {
+            var boton = sender as Button;
+            if (boton != null) boton.IsEnabled = false;
             try
             {
-                if (string.IsNullOrWhiteSpace(txtNitCliente.Text))
-                {
-                    MessageBox.Show("Tiene Que Completar los datos del cliente");
-                    return;
-                }
-                if (dgProductos.HasItems == false)
-                {
-                    MessageBox.Show("No se ha añadido ningun producto a la factura");
-                    return;
-                }
-                if (faltante > 0 || string.IsNullOrWhiteSpace(txtMontoRecibido.Text)==true)
-                {
-                    MessageBox.Show("El Cliente No Ha Entregado El Total De La Venta");
-                    return;
-                }
-                if (dpFechaVenta.SelectedDate==null)
-                {
-                    MessageBox.Show("Debe Seleccionar Una Fecha");
-                    return;
-                }
-
-                DateTime FechaFactura = dpFechaVenta.SelectedDate.Value.Date;
-                int idVenta = await _ventaService.crearVenta(clienteId, FechaFactura, TotalVenta, decimal.Parse(txtMontoRecibido.Text), Cambio);
-                MessageBox.Show("Se guardo la Venta");
-                //Guardar Detalle Venta
-                for (int i = 0; i < dgProductos.Items.Count; i++)
-                {
-                    var item = dgProductos.Items[i] as DetalleVentaModelView;
-                    //crearDetalleVenta(int ventaId,int productoId,decimal cantidad, decimal precio_Unitario, decimal subtotal)
-                    await _serviceDetalleVenta.crearDetalleVenta(idVenta, item.Producto.Id, item.Cantidad, item.Precio_Unitario, item.SubTotalCalculado);
-                    //actualizar stock
-                     await _productoService.actualizarDescontarProducto(item.Producto.Id,item.Cantidad);
-                }
-                MessageBox.Show("Se guardo el detallecompra");
-
+                if (clienteId <= 0) { MessageBox.Show("Seleccione un cliente registrado."); return; }
+                if (dpFechaVenta.SelectedDate == null) { MessageBox.Show("Seleccione la fecha."); return; }
+                if (!decimal.TryParse(txtMontoRecibido.Text, out decimal recibido)) { MessageBox.Show("Monto recibido inválido."); return; }
+                var lineas = dgProductos.Items.OfType<DetalleVentaModelView>()
+                    .Select(d => new LineaOperacion { ProductoId = d.Producto.Id, Cantidad = d.Cantidad, PrecioUnitario = d.Precio_Unitario }).ToList();
+                int id = await new OperacionInventarioService().RegistrarVentaAsync(clienteId, dpFechaVenta.SelectedDate.Value.Date, recibido, lineas);
+                MessageBox.Show($"Venta #{id} guardada correctamente.");
+                dgProductos.Items.Clear();
+                borrarCamposDetalle();
+                recalcularTotal();
+                txtMontoRecibido.Clear();
             }
-            catch(Exception ex)
-            {
-                MessageBox.Show($"Ha Ocurrido Un Error: {ex}");
-            }
-            
-
-            /*
-            //testear los id
-            for(int i = 0; i < dgProductos.Items.Count; i++)
-            {
-                var item = dgProductos.Items[i] as DetalleVentaModelView;
-                MessageBox.Show($"Prueba de datos. productoid:{item.Producto.Id}, productoid2:{item.Producto_Id}, idmodelview:{item.Id}");
-            }
-            */
-
+            catch (Exception ex) { MessageBox.Show($"No se guardó la venta: {ex.Message}"); }
+            finally { if (boton != null) boton.IsEnabled = true; }
         }
 
         private void btnCancelar_Click(object sender, RoutedEventArgs e)

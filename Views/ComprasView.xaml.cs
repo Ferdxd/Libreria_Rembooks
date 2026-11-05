@@ -95,57 +95,22 @@ namespace Libreria_Rembooks.Views
 
         private async void btnGuardar_Click(object sender, RoutedEventArgs e)
         {
-            //Guardar Compra
+            var boton = sender as Button;
+            if (boton != null) boton.IsEnabled = false;
             try
             {
-                //validacion de seleccion de fecha
-                if (dpDate.SelectedDate == null)
-                {
-                    MessageBox.Show("Es Obligatorio Seleccionar Una Fecha");
-                    return;
-                }
-                //validacion de proveedor
-                if (string.IsNullOrEmpty(txtNit.Text))
-                {
-                    MessageBox.Show("Es Obligatorio Seleccionar Un Proveedor");
-                    return;
-                }
-                //validacion de total compra
-                if (TotalCompra<=0)
-                {
-                    MessageBox.Show("Tienes que ingresar algun producto");
-                    return;
-                }
-                if (string.IsNullOrWhiteSpace(txtNoDocumento.Text)||string.IsNullOrWhiteSpace(txtSerie.Text)||string.IsNullOrWhiteSpace(cbTipoDoc.Text))
-                {
-                    MessageBox.Show("Faltan Datos En La Factura");
-                    return;
-                }
-              
-                DateTime FechaFactura = DateTime.Now.Date;
-                DateTime FechaIngreso = dpDate.SelectedDate.Value.Date;
-                int idCompra = await compraService.crearCompra(int.Parse(id_Proveedor), FechaFactura,FechaIngreso,txtSerie.Text, txtNoDocumento.Text, cbTipoDoc.SelectedItem.ToString(), decimal.Parse(txtTotalCompra.Text));
-                MessageBox.Show("Se guardo la compra");
-                //Guardar Detalle Compra
-                for (int i = 0; i < dgListaProductos.Items.Count; i++)
-                {
-                    var item = dgListaProductos.Items[i] as DetalleCompraModelView;
-
-                    await detalleCompraService.crearDetalleCompra(idCompra, item.Producto_Id, item.Cantidad, item.Precio_Unitario, item.SubtotalCalculado);
-                    //actualizar stock
-                    await productoService.actualizarStockYPrecio(item.Producto_Id, item.Precio_Unitario, item.Cantidad);
-                }
-                MessageBox.Show("Se guardo el detallecompra");
+                if (!int.TryParse(id_Proveedor, out int proveedorId) || proveedorId <= 0) { MessageBox.Show("Seleccione un proveedor."); return; }
+                if (dpDate.SelectedDate == null || dpFechaIngreso.SelectedDate == null) { MessageBox.Show("Seleccione ambas fechas."); return; }
+                var lineas = dgListaProductos.Items.OfType<DetalleCompraModelView>()
+                    .Select(d => new LineaOperacion { ProductoId = d.Producto_Id, Cantidad = d.Cantidad, PrecioUnitario = d.Precio_Unitario }).ToList();
+                int id = await new OperacionInventarioService().RegistrarCompraAsync(
+                    proveedorId, dpDate.SelectedDate.Value.Date, dpFechaIngreso.SelectedDate.Value.Date,
+                    txtSerie.Text, txtNoDocumento.Text, cbTipoDoc.Text, lineas);
+                MessageBox.Show($"Compra #{id} guardada correctamente.");
+                borrarCampos();
             }
-            catch(Exception ex)
-            {
-                MessageBox.Show($"Error al guardar: {ex.Message}");
-            }
-
-
-            //borrarCampos();
-            borrarCampos();
-
+            catch (Exception ex) { MessageBox.Show($"No se guardó la compra: {ex.Message}"); }
+            finally { if (boton != null) boton.IsEnabled = true; }
         }
 
         private void btnConsultarCompras_Click(object sender, RoutedEventArgs e)
